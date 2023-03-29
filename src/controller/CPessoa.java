@@ -35,7 +35,7 @@ public class CPessoa {
      * @param p
      */
     public void removePessoa(Pessoa p) {
-        this.removePessoa(p);
+        this.pessoas.remove(p);
     }// fim do removePessoa
 
     public ArrayList<Pessoa> getPessoas() {
@@ -69,11 +69,11 @@ public class CPessoa {
         p1.setEndereco("Rua Venancio Aires");
         addPessoa(p1);
         Pessoa p2 = new Pessoa();
-        p1.setIdPessoa(geraID());
-        p1.setCpf("89177634055");
-        p1.setNome("Fernando Lucio da Costa");
-        p1.setTelefone("51917122006");
-        p1.setEndereco("Avenida Padre Cacique");
+        p2.setIdPessoa(geraID());
+        p2.setCpf("89177634055");
+        p2.setNome("Fernando Lucio da Costa");
+        p2.setTelefone("51917122006");
+        p2.setEndereco("Avenida Padre Cacique");
         addPessoa(p2);
 
     }
