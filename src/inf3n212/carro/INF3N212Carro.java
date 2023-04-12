@@ -309,7 +309,99 @@ public class INF3N212Carro {
     }//fim editar pessoa
 
     private static void editarCarro() {
-        System.out.println("Editar Carro");
+        System.out.println("        Editar Carro        ");
+        boolean isPlaca;
+        do {
+            System.out.print("Informe a placa: ");
+            String placa = leia.nextLine();
+            placa = placa.toUpperCase();
+            isPlaca = Validadores.validarPlaca(placa);
+            if (isPlaca) {
+                Carro c = cadCarro.getCarroPlaca(placa);// getcarroplaca começa pelo null
+                if (c != null) {//se for diferente de null faz edição
+                    do {
+                        System.out.println("Quais dados de " + c.getMarca() + ", " + c.getModelo() + ", " + c.getPlaca() + " deseja alterar? ");
+                        System.out.println("1 - Cor");
+                        System.out.println("2 - Tipo de Cambio");
+                        System.out.println("3 - Tipo de Combustivel");
+                        System.out.println("4 - Proprietário");
+                        System.out.println("5 - Todos");
+                        System.out.println("0 - Cancelar");
+                        System.out.print("Digite aqui: ");
+                        int op = leiaNumInt();
+                        if (op == 1 || op == 5) {
+                            System.out.print("Alterar a cor " + c.getCor() + " para: ");
+                            c.setCor(leia.nextLine());
+                            System.out.println("Cor foi altarada para " + c.getCor());
+                        }
+                        if (op == 2 || op == 5) {
+                            System.out.print("Alterar o tipo de cambio " + c.getTpCambio() + " para: ");
+                            c.setTpCambio(leia.nextLine());
+                            System.out.println("Cambio foi alterado para " + c.getTpCambio());
+                        }
+                        if (op == 3 || op == 5) {
+                            System.out.print("Alterar o tipo de combustivel " + c.getCombustivel() + " para: ");
+                            c.setCombustivel(leia.nextLine());
+                            System.out.println("Tipo de combustivel alterado para " + c.getCombustivel());
+                        }
+                        if (op == 4 || op == 5) {
+                            String cpf;
+                            boolean tcpf;
+                            do {
+                                System.out.print("Informe o CPF: ");
+                                cpf = leia.nextLine();
+                                tcpf = Validadores.isCPF(cpf);
+                                if (tcpf) {
+                                    Pessoa p = cadPessoa.getPessoaCPF(cpf);
+                                    if (p != null) {
+                                        System.out.println("CPF encontrado " + p.getCpf() + " nome " + p.getNome());
+                                        c.setProprietario(p);
+                                        System.out.println("Proprietário do veículo " + c.getMarca() + ", " + c.getModelo() + ", " + c.getPlaca() 
+                                                + " alterado para " + p.getNome() + " de CPF " + p.getCpf());
+                                        tcpf = false;
+                                        
+                                    }else{
+                                        System.out.println("CPF não encontrado.");
+                                        System.out.println("Deseja tantar outro? ");
+                                        System.out.println("1 - Sim | 2 - Cadastrar outra pessoa | 3 - Não");
+                                        System.out.print("Digite aqui: ");
+                                        op = leiaNumInt();
+                                        if (op == 1) {
+                                            tcpf = true;
+                                        }if (op == 2) {
+                                            cadastrarPessoa();
+                                        }if (op == 3) {
+                                            tcpf = false;
+                                        }
+                                    }
+
+                                }else{
+                                    System.out.println("CPF Inválido");
+                                    tcpf = true;
+                                }
+                            } while (tcpf);
+                        }
+                        if (op == 0) {
+                            System.out.println("Cancelado.");
+                            isPlaca = false;
+                        }
+                    } while (isPlaca);
+                } else {
+                    System.out.println("Placa não localizada.");
+                    isPlaca = true;
+                }
+            } else {
+                System.out.println("Placa Informada inválida!");
+                System.out.println("Deseja tentar novamente?");
+                System.out.println("1 - Sim | 2 - Cancelar");
+                System.out.print("Insira a opção: ");
+                int op = leiaNumInt();
+                if (op == 1) {
+                    isPlaca = true;
+                }
+            }
+
+        } while (isPlaca);
     }
 
     private static void listarPessoa() {
